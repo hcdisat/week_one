@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">WeekOne</string>
+    <string name="email_address_label">Email address</string>
+    <string name="password_label">Create password</string>
+    <string name="repeat_password_label">Repeat password</string>
+    <string name="password_rules_text">
+        Your password should have a minimum of 8
+        character and contain at least one
+        number, one uppercase and one lower
+        case letter. You can use special characters.
+    </string>
+    <string name="email_error_message">An account already exists for this email address</string>
+    <string name="new_account_activity_title">Create an account</string>
+    <string name="btn_next">Next</string>
+    <string name="go_back_cd">Go Back</string>
+    <string name="email_invalid_error_message">Email is not valid</string>
+    <string name="passwords_error_message">Your password don\'t match</string>
+    <string name="create_account_text">
+        GreenFlag customers can \ncreate an account to access
+    </string>
+    <string name="car_health_updates">Car health updates</string>
+    <string name="request_a_rescue_online">Request a rescue online</string>
+    <string name="policy_information">Policy information</string>
+    <string name="tick_cd">tick</string>
+    <string name="btn_create_account">Create an account</string>
+    <string name="login_title">Login</string>
+    <string name="login_password_label">Password</string>
+    <string name="welcome_message">Welcome Back,</string>
+    <string name="incorrect_password_message">The email and password combination did not match our records</string>
 </resources>

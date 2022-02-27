@@ -1,5 +1,6 @@
 package com.hcdisat.weekone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.hcdisat.weekone.models.Account;
 import com.hcdisat.weekone.models.StorageRepository;
@@ -17,11 +19,16 @@ import com.hcdisat.weekone.validation.IValidate;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
 
-    public static final String EXTRA_EMAIL = "EXTRA_EMAIL";
+    public static final String
+            EXTRA_EMAIL = "EXTRA_EMAIL",
+            ERROR_STATE = "ERROR_STATE";
+
     private boolean mIsEmailValid, mIsPasswordValid;
     private EditText mEmail;
     private EditText mPassword;
     private View mNextBtn;
+    private View mBtnBackground;
+    private View mErrorWrapper;
 
     private Account getAccount() {
         return new Account(
@@ -30,19 +37,42 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         );
     }
 
+    private void setLoginButtonState() {
+        if (mIsEmailValid && mIsPasswordValid) {
+            mBtnBackground.setBackgroundResource(R.drawable.gradient_button_background);
+            mNextBtn.setEnabled(true);
+            return;
+        }
+
+        mBtnBackground.setBackgroundResource(R.drawable.disabled_button_background);
+        mNextBtn.setEnabled(false);
+    }
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Buttons
         mNextBtn = findViewById(R.id.btn_login_next);
         mNextBtn.setOnClickListener(this);
         View backBtn = findViewById(R.id.btn_back);
         backBtn.setOnClickListener(this);
 
+        // EditTexts
         mEmail = (EditText) findViewById(R.id.editText_login_emailAddress);
         mPassword = (EditText) findViewById(R.id.editText_login_password);
         mEmail.addTextChangedListener(this);
         mPassword.addTextChangedListener(this);
+
+        // Error message
+        mBtnBackground = findViewById(R.id.btn_container);
+        mErrorWrapper = findViewById(R.id.incorrect_password_alert);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getBoolean(ERROR_STATE)) {
+                mErrorWrapper.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override public void onClick(View view) {
@@ -66,31 +96,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
-        findViewById(R.id.incorrect_password_alert).setVisibility(View.VISIBLE);
+        mErrorWrapper.setVisibility(View.VISIBLE);
     }
 
     @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
     @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
-    @Override
-    public void afterTextChanged(Editable editable) {
-        if (mEmail.hasFocus()) {
-            IValidate emailValidator =
-                    new EmailFormatWatcher(editable.toString(), R.string.email_invalid_error_message);
-            mIsEmailValid = emailValidator.validate();
-        }
-        if (mPassword.hasFocus())
-            mIsPasswordValid = !editable.toString().isEmpty();
+    @Override public void afterTextChanged(Editable editable) {
+        String email = mEmail.getText().toString();
+        String password = mPassword.getText().toString();
 
-        View btnBackground = findViewById(R.id.btn_container);
-        if (mIsEmailValid && mIsPasswordValid) {
-            btnBackground.setBackgroundResource(R.drawable.gradient_button_background);
-            mNextBtn.setEnabled(true);
-            return;
-        }
+        IValidate emailValidator =
+                new EmailFormatWatcher(email, R.string.email_invalid_error_message);
 
-        btnBackground.setBackgroundResource(R.drawable.disabled_button_background);
-        mNextBtn.setEnabled(false);
+        mIsEmailValid = emailValidator.validate();
+        mIsPasswordValid = !password.isEmpty();
+
+        setLoginButtonState();
+    }
+
+    @Override protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mErrorWrapper.getVisibility() == View.VISIBLE)
+            outState.putBoolean(ERROR_STATE, true);
     }
 }

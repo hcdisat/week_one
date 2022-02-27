@@ -11,10 +11,11 @@
         <entry key="app/src/main/res/drawable/input_success_background.xml" value="0.2535" />
         <entry key="app/src/main/res/drawable/line.xml" value="0.2535" />
         <entry key="app/src/main/res/font/museo_sans.xml" value="0.403125" />
+        <entry key="app/src/main/res/layout-land/activity_login.xml" value="0.3071638861629048" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/activity_new_account.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/activity_new_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.3729166666666667" />
       </map>
     </option>

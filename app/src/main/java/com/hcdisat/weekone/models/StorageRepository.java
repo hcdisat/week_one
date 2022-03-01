@@ -9,8 +9,6 @@ public class StorageRepository {
 
     public static final String FILE_NAME = "com.hcdisat.weekone.FILE_NAME";
 
-    private StorageRepository mInstance;
-
     private final Context mContext;
 
     public StorageRepository(Context context) {
@@ -22,7 +20,6 @@ public class StorageRepository {
      * @param account account to be written
      */
     public void write(Account account) {
-        SharedPreferences handler = getSharedPreferences();
         SharedPreferences.Editor editor = getEditor();
         editor.putString(account.getEmail(), account.getPassword());
         editor.apply();

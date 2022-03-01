@@ -18,13 +18,11 @@ public class PasswordWatcher implements IValidate {
                 && password.equals(repeatedPassword);
     }
 
-    @Override
-    public boolean validate() {
+    @Override public boolean validate() {
         return passwordsMatches(_target, _textToCheck);
     }
 
-    @Override
-    public int getMessageId() {
+    @Override public int getMessageId() {
         return _messageId;
     }
 }

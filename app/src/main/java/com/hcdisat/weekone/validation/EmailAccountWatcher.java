@@ -18,13 +18,11 @@ public class EmailAccountWatcher implements IValidate{
         _messageId = messageId;
     }
 
-    @Override
-    public boolean validate() {
+    @Override public boolean validate() {
         return mStorageRepository.read(_target.toString()) == null;
     }
 
-    @Override
-    public int getMessageId() {
+    @Override public int getMessageId() {
         return _messageId;
     }
 

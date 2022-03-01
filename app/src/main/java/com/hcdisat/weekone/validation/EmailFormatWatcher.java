@@ -17,15 +17,13 @@ public class EmailFormatWatcher implements IValidate {
         _messageId = messageId;
     }
 
-    @Override
-    public boolean validate() {
+    @Override public boolean validate() {
         String _regexPattern = "[a-z0-9]+@[a-z]+\\.[a-z]{2,3}";
 
         return Pattern.compile(_regexPattern).matcher(_target).matches();
     }
 
-    @Override
-    public int getMessageId() {
+    @Override public int getMessageId() {
         return _messageId;
     }
 }

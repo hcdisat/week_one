@@ -115,6 +115,7 @@ public class NewAccountActivity extends BaseActivity implements TextWatcher, Vie
     private boolean updateInputState(View viewContainer, EditText targetInput, IValidate validator) {
         if (validator.validate()) {
             setValidInputState(viewContainer, targetInput);
+
             return true;
         }
 
